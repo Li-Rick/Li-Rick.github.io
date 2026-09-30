@@ -1,0 +1,5 @@
+/* Adapted from r52/p5launcher (MIT). See ../vendor/p5launcher/LICENSE. */
+.cut-letter { --rot: 0deg; display: inline-block; transform: rotate(var(--rot)); }
+.cut-letter.box { color: #090909; background-color: #f5f1e8; }
+.menu-item { --rot: 0deg; transform: rotate(var(--rot)); }
+.menu-item::before { content: ''; position: absolute; inset: 7px 4px; background: #090909; transform: perspective(600px) rotateY(8deg) skewX(-5deg); box-shadow: -8px 7px 0 #f5f1e8; z-index: -1; }

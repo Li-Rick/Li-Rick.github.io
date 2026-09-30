@@ -1,0 +1,17 @@
+const {escapeHTML:e,json}=window.Site,root=document.getElementById('academic-app');
+try{
+const notes=await json('/content/notes.json');
+root.innerHTML=`<div class="archive-banner"><span class="archive-big">${notes.length}<small>ENTRIES</small></span><div><strong>THE READING ARCHIVE</strong><p>智能体安全、提示词注入与授权边界。<br>阅读，连接，留下自己的注解。</p></div><span class="archive-glyph" aria-hidden="true">↗</span></div><div class="library-controls"><label class="search-box"><span>⌕</span><input type="search" id="note-search" placeholder="搜索标题、关键词或笔记内容" aria-label="搜索笔记"><kbd>/</kbd></label><label class="sort-label">排序 <select id="note-sort"><option value="new">最近更新</option><option value="name">标题 A–Z</option></select></label></div><div class="filter-tabs" role="group" aria-label="笔记分类">${['全部','论文精读','研究综述','阅读索引'].map((c,i)=>`<button data-category="${c}" aria-pressed="${i===0}">${c}<span>${c==='全部'?notes.length:notes.filter(n=>n.category===c).length}</span></button>`).join('')}</div><p class="result-count" aria-live="polite"></p><div class="note-list"></div><p class="archive-source">READ / THINK / CONNECT <span>笔记保留原始内容与写作日期。</span></p>`;
+const search=root.querySelector('input'),sort=root.querySelector('select'),list=root.querySelector('.note-list');let category='全部',fullText=null,querySequence=0;
+async function render(){
+const sequence=++querySequence,q=search.value.trim().toLowerCase();
+if(q&&!fullText){root.querySelector('.result-count').textContent='正在检索全文…';fullText=Promise.all(notes.map(async n=>{const r=await fetch(n.body);if(!r.ok)throw Error();return [n.id,(await r.text()).toLowerCase()]})).then(Object.fromEntries).catch(()=>null)}
+const texts=q?await fullText:null;if(sequence!==querySequence)return;
+const filtered=notes.filter(n=>(category==='全部'||n.category===category)&&(!q||[n.name,n.title,n.excerpt,texts?.[n.id]||''].join(' ').toLowerCase().includes(q))).sort((a,b)=>sort.value==='name'?a.name.localeCompare(b.name):(/^\d/.test(b.date)?b.date:'').localeCompare(/^\d/.test(a.date)?a.date:''));
+root.querySelector('.result-count').textContent=`${String(filtered.length).padStart(2,'0')} / ${notes.length} 条笔记${q&&!texts?' · 全文暂不可用，已搜索标题和摘要':''}`;
+list.innerHTML=filtered.length?filtered.map((n,i)=>`<a class="note-row" href="/academic/note/?id=${n.id}"><span class="note-index">${String(i+1).padStart(2,'0')}</span><div class="note-info"><div class="note-meta"><span>${e(n.category)}</span><span>${e(n.date)}</span><span>${n.minutes} MIN READ</span></div><h2>${e(n.name)}</h2><p>${e(n.title!==n.name?n.title:n.excerpt)}</p></div><span class="note-arrow" aria-hidden="true">↗</span></a>`).join(''):'<div class="empty-search"><b>没有匹配的笔记</b><p>换一个关键词，或清除筛选再试试。</p><button id="clear-search">清除搜索与筛选</button></div>';
+root.querySelector('#clear-search')?.addEventListener('click',()=>{search.value='';category='全部';root.querySelectorAll('[data-category]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.category==='全部')));render()});document.dispatchEvent(new Event('content-ready'));
+}
+search.addEventListener('input',render);sort.addEventListener('change',render);root.querySelectorAll('[data-category]').forEach(b=>b.addEventListener('click',()=>{category=b.dataset.category;root.querySelectorAll('[data-category]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));render()}));document.addEventListener('keydown',event=>{if(event.key==='/'&&!['INPUT','TEXTAREA'].includes(document.activeElement.tagName)){event.preventDefault();search.focus()}});render();
+}catch{root.innerHTML='<p class="load-error">笔记暂时无法加载。请刷新页面重试。</p>'}
+
