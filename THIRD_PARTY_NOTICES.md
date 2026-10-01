@@ -16,3 +16,8 @@
 
 笔记、摄影及附件来自用户指定的本地文件；上述组件许可不覆盖这些内容。论文图表和 PDF 的权利属于各自作者或出版方。
 
+
+## Photography province map
+
+Map boundary data: DataV.GeoAtlas, retrieved via https://github.com/lqb-zh/geojson-chinadata (100000_full.json). Local copy: assets/china-provinces.json. Used for a province-level photo navigation map.
+

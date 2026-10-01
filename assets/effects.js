@@ -10,11 +10,13 @@ entrance.push(engine({targets:'.menu-item',rotate:(_,i)=>[-5,-3,-5,-2][i],opacit
 entrance.push(engine({targets:'.page-head,.reader-head',opacity:[0,1],translateY:[28,0],duration:700,easing:'easeOutCubic'}));
 }
 const seen=new WeakSet(),observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('revealed');observer.unobserve(entry.target)}})},{threshold:.04});
-function observe(){document.querySelectorAll('.note-row,.thumb,.project-card,.archive-banner').forEach(el=>{if(seen.has(el))return;seen.add(el);el.classList.add('reveal');if(enabled)observer.observe(el);else el.classList.add('revealed')})}
+function observe(){document.querySelectorAll('.note-row,.thumb,.project-card,.archive-banner,.photo-theater,.library-controls,.filter-tabs').forEach(el=>{if(seen.has(el))return;seen.add(el);el.style.setProperty('--reveal-delay',(Math.min(Array.from(el.parentElement.children).indexOf(el),7)*45)+'ms');el.classList.add('reveal');if(enabled)observer.observe(el);else el.classList.add('revealed')})}
 document.addEventListener('content-ready',observe);observe();
 cursor=document.createElement('div');cursor.className='persona-cursor';cursor.setAttribute('aria-hidden','true');cursor.innerHTML='<i></i><b>+</b>';document.body.append(cursor);
 function track(){if(!enabled||!visible||document.hidden||!fine.matches){raf=0;return}cx+=(x-cx)*.2;cy+=(y-cy)*.2;cursor.style.transform=`translate3d(${cx}px,${cy}px,0)`;raf=requestAnimationFrame(track)}
 addEventListener('pointermove',event=>{if(event.pointerType==='touch'||!enabled||!fine.matches)return;x=event.clientX;y=event.clientY;visible=true;cursor.classList.add('visible');cursor.classList.toggle('over-link',!!event.target.closest('a,button,input,select'));if(!raf)raf=requestAnimationFrame(track)},{passive:true});
 document.addEventListener('pointerleave',()=>{visible=false;cursor.classList.remove('visible')});document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(raf);raf=0;cursor.classList.remove('visible')}else if(visible&&enabled&&!raf)raf=requestAnimationFrame(track)});
 addEventListener('pointerdown',event=>{if(!enabled||event.pointerType==='touch'||!engine)return;const burst=document.createElement('div');burst.className='cursor-burst';burst.style.left=event.clientX+'px';burst.style.top=event.clientY+'px';burst.setAttribute('aria-hidden','true');document.body.append(burst);engine({targets:burst,scale:[.3,2.6],rotate:[-30,100],opacity:[.9,0],duration:550,easing:'easeOutExpo',complete:()=>burst.remove()})});
+
+
 
