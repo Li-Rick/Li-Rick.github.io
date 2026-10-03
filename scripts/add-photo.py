@@ -54,7 +54,7 @@ def add_photo(image, name, province, city='', root=None):
         with tempfile.NamedTemporaryFile(mode='w', encoding='utf-8', dir=index_file.parent,
                                          delete=False, suffix='.tmp') as stream:
             temp_path = Path(stream.name)
-            json.dump(photos + [entry], stream, ensure_ascii=False, indent=2)
+            json.dump([entry] + photos, stream, ensure_ascii=False, indent=2)
             stream.write('\n')
         os.replace(temp_path, index_file)
     except Exception:

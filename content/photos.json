@@ -1,17 +1,5 @@
 [
   {
-    "id": "frame-01",
-    "title": "午后小憩",
-    "originalName": "20260430134657_338_32.jpg",
-    "caption": "午后小憩",
-    "src": "/content/photos/frame-01.jpg",
-    "thumb": "/content/thumbs/frame-01.webp",
-    "width": 1920,
-    "height": 1080,
-    "orientation": "横向",
-    "province": "浙江省"
-  },
-  {
     "id": "frame-02",
     "title": "海的蓝调",
     "originalName": "20260831.jpg",
@@ -23,6 +11,18 @@
     "orientation": "横向",
     "province": "山东省",
     "city": "青岛"
+  },
+  {
+    "id": "frame-01",
+    "title": "午后小憩",
+    "originalName": "20260430134657_338_32.jpg",
+    "caption": "午后小憩",
+    "src": "/content/photos/frame-01.jpg",
+    "thumb": "/content/thumbs/frame-01.webp",
+    "width": 1920,
+    "height": 1080,
+    "orientation": "横向",
+    "province": "浙江省"
   },
   {
     "id": "frame-03",
