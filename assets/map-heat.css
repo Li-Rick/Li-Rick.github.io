@@ -1,0 +1,21 @@
+.photo-map{position:relative;isolation:isolate;overflow:hidden;background:radial-gradient(ellipse at 65% 35%,#0b416159,transparent 65%),linear-gradient(140deg,#062a4c,#030f22);border-color:#64d8ed40}
+.map-canvas{position:relative}.map-canvas::before{content:'';position:absolute;inset:8% 5%;border:1px solid #52d4e412;border-radius:50%;transform:rotate(-24deg);pointer-events:none}.map-canvas::after{content:'';position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,#a4fbff09 49%,transparent 64%);pointer-events:none;animation:atlas-current 12s ease-in-out infinite;animation-play-state:paused}
+.map-in-view:not(.map-paused) .map-canvas::after{animation-play-state:running}
+.photo-map .province{fill:var(--heat,#0a1e36);stroke:#709eb977;stroke-width:.8;transition:fill .25s,stroke .25s,stroke-width .25s;vector-effect:non-scaling-stroke}
+.photo-map .province.has-photos{stroke:#8cdae5a0;stroke-width:1}
+.photo-map .province:is(:hover,:focus-visible){fill:var(--heat);stroke:#fff6d9;stroke-width:2.5;filter:brightness(1.2);outline:none}
+.photo-map .province.selected{fill:var(--heat);stroke:#fff6d9;stroke-width:2.5;stroke-dasharray:5 3;animation:atlas-outline 14s linear infinite}
+.photo-map .province-label{fill:#c9e4ef;paint-order:stroke;stroke:#061b31;stroke-width:2px;stroke-linejoin:round;font-size:10px}.photo-map .label-warm{fill:#09273b;stroke:#dfefdd80;stroke-width:1px}
+.heat-beacon{fill:#e4ffff;stroke:#041a37;stroke-width:1;pointer-events:none;transform-box:fill-box;transform-origin:center;animation:atlas-pulse 3s ease-in-out infinite;animation-delay:var(--pulse-delay);animation-play-state:paused}
+.map-in-view:not(.map-paused) .heat-beacon{animation-play-state:running}
+.heat-legend{display:grid;grid-template-columns:1fr 1fr;gap:7px 30px;width:180px;font:10px Consolas,monospace}.heat-legend>span:first-child{grid-column:1/-1;color:#a3cbdc;letter-spacing:2px}.heat-legend i{grid-column:1/-1;height:8px;background:linear-gradient(90deg,#0a1e36,#195b93,#189bc2,#4fdbde,#ffe0a4);border:1px solid #b2efff30}.heat-legend>span:last-child{text-align:right;color:#ffe0a4}
+.map-readout{min-height:20px;margin:22px 0 0;padding-left:12px;border-left:2px solid #6cdce2;font-size:12px;letter-spacing:1px;color:#bce5ed}
+.province-dialog[open]{animation:atlas-dialog-in .28s cubic-bezier(.16,1,.3,1)}
+@keyframes atlas-current{0%,10%{transform:translateX(-80%)}90%,100%{transform:translateX(80%)}}
+@keyframes atlas-pulse{0%,100%{opacity:.55;scale:.8}50%{opacity:1;scale:1.3}}
+@keyframes atlas-outline{to{stroke-dashoffset:-80}}
+@keyframes atlas-dialog-in{from{opacity:0;translate:0 15px}to{opacity:1;translate:0 0}}
+@media(max-width:580px){.heat-legend{width:150px}.map-toolbar{gap:16px}.map-readout{font-size:11px;line-height:1.7}}
+.motion-off .map-canvas::after{display:none}
+.photo-map .province.selected{animation-play-state:paused}.map-in-view:not(.map-paused) .province.selected{animation-play-state:running}
+@media(prefers-reduced-motion:reduce){.map-canvas::after{display:none}}

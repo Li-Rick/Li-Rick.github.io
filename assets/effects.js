@@ -1,10 +1,11 @@
 const reduced=matchMedia('(prefers-reduced-motion: reduce)'),fine=matchMedia('(pointer:fine)'),button=document.querySelector('.motion-toggle');
 let enabled=!reduced.matches;try{enabled=enabled&&localStorage.getItem('rick-motion')!=='off'}catch{}
 let engine=null,cursor=null,raf=0,x=-100,y=-100,cx=-100,cy=-100,visible=false,entrance=[];
+addEventListener('pagereveal',event=>{if(event.viewTransition)entrance.forEach(a=>a.seek(a.duration))});
 function setMotion(value){enabled=value&&!reduced.matches;document.body.classList.toggle('motion-off',!enabled);button.textContent=enabled?'动效 ON':'动效 OFF';button.setAttribute('aria-pressed',String(enabled));document.dispatchEvent(new CustomEvent('motion-change',{detail:enabled}));if(!enabled){cancelAnimationFrame(raf);raf=0;cursor?.classList.remove('visible');entrance.forEach(a=>a.seek(a.duration));document.querySelectorAll('.reveal').forEach(el=>el.classList.add('revealed'))}else if(visible&&fine.matches&&!raf)raf=requestAnimationFrame(track)}
 button.addEventListener('click',()=>{setMotion(!enabled);try{localStorage.setItem('rick-motion',enabled?'on':'off')}catch{}});reduced.addEventListener('change',()=>setMotion(!reduced.matches));setMotion(enabled);
 try{await Site.loadScript('/vendor/animejs/lib/anime.min.js');engine=window.anime}catch{}
-if(enabled&&engine){
+if(enabled&&engine&&!document.documentElement.hasAttribute('data-document-arrival')){
 entrance.push(engine({targets:'.intro',opacity:[0,1],translateX:[-45,0],duration:850,easing:'easeOutExpo'}));
 entrance.push(engine({targets:'.menu-item',rotate:(_,i)=>[-5,-3,-5,-2][i],opacity:[0,1],translateX:[90,0],delay:engine.stagger(110,{start:180}),duration:900,easing:'easeOutExpo'}));
 entrance.push(engine({targets:'.page-head,.reader-head',opacity:[0,1],translateY:[28,0],duration:700,easing:'easeOutCubic'}));

@@ -1,0 +1,28 @@
+/* The two real document views overlap. There is no interstitial artwork. */
+::view-transition{pointer-events:none}
+html[data-document-arrival] :is(.intro,.page-head,.reader-head,.about-intro,.about-portrait){animation:none!important;opacity:1!important;translate:none!important;rotate:none!important}
+html[data-document-arrival] .reveal{opacity:1!important;translate:none!important;transition:none!important}
+::view-transition-group(root){animation-duration:.7s;animation-timing-function:cubic-bezier(.22,1,.36,1)}
+::view-transition-image-pair(root){isolation:isolate;perspective:1800px}
+::view-transition-old(root),::view-transition-new(root){height:100%;width:100%;object-fit:cover;transform-origin:50% 45%;animation-duration:.7s;animation-timing-function:cubic-bezier(.22,1,.36,1);animation-fill-mode:both;mix-blend-mode:plus-lighter;backface-visibility:hidden}
+::view-transition-old(root){animation-name:page-rotate-out}
+::view-transition-new(root){animation-name:page-rotate-in}
+html[data-page-transition=academic]::view-transition-old(root),html[data-page-transition=reading]::view-transition-old(root){animation-name:page-glide-out}
+html[data-page-transition=academic]::view-transition-new(root),html[data-page-transition=reading]::view-transition-new(root){animation-name:page-glide-in}
+html[data-page-transition=photography]::view-transition-old(root){animation-name:page-zoom-out}
+html[data-page-transition=photography]::view-transition-new(root){animation-name:page-zoom-in}
+html[data-page-transition=about]::view-transition-image-pair(root),html[data-page-transition=projects]::view-transition-image-pair(root){isolation:auto}
+html[data-page-transition=about]::view-transition-old(root),html[data-page-transition=projects]::view-transition-old(root){animation-name:page-underlay;mix-blend-mode:normal}
+html[data-page-transition=about]::view-transition-new(root){animation-name:page-triangle-in;mix-blend-mode:normal;transform-origin:0 100%}
+html[data-page-transition=projects]::view-transition-new(root){animation-name:page-diagonal-in;mix-blend-mode:normal;transform-origin:100% 0}
+@keyframes page-rotate-out{from{opacity:1;transform:none}to{opacity:0;transform:translate(-7%,3%) rotate(-5deg) scale(.96)}}
+@keyframes page-rotate-in{from{opacity:0;transform:translate(7%,-3%) rotate(5deg) scale(1.05)}to{opacity:1;transform:none}}
+@keyframes page-glide-out{from{opacity:1;transform:none}to{opacity:0;transform:translate(-9%,1%) rotate(-2deg) scale(.98)}}
+@keyframes page-glide-in{from{opacity:0;transform:translate(11%,-1%) rotate(2deg) scale(1.025)}to{opacity:1;transform:none}}
+@keyframes page-zoom-out{from{opacity:1;transform:none}to{opacity:0;transform:scale(1.12) rotate(-1deg)}}
+@keyframes page-zoom-in{from{opacity:0;transform:scale(.91) rotate(1deg)}to{opacity:1;transform:none}}
+@keyframes page-underlay{from{transform:none}to{transform:scale(1.025) rotate(-1deg)}}
+@keyframes page-triangle-in{from{clip-path:polygon(0 100%,0 100%,0 100%);transform:rotate(-3deg) scale(1.03)}to{clip-path:polygon(0 -100%,200% 100%,0 100%);transform:none}}
+@keyframes page-diagonal-in{from{clip-path:polygon(100% 0,100% 0,100% 0);transform:rotate(3deg) scale(1.03)}to{clip-path:polygon(-100% 0,100% 0,100% 200%);transform:none}}
+@media(max-width:580px){::view-transition-group(root),::view-transition-old(root),::view-transition-new(root){animation-duration:.58s}}
+@media(prefers-reduced-motion:reduce){::view-transition-group(root),::view-transition-old(root),::view-transition-new(root){animation:none!important}}
