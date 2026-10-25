@@ -1,5 +1,17 @@
 [
   {
+    "id": "n16",
+    "name": "GiGPO 系列工作梳理",
+    "title": "从 GiGPO、HGPO 到 GraphGPO 与 G2PO：细粒度奖励、分组与图建模",
+    "category": "研究综述",
+    "date": "2026-10-25",
+    "year": "2026",
+    "excerpt": "梳理 GiGPO、HGPO、GraphGPO 与 G2PO 的方法脉络，讨论历史分组、图上信用分配，以及细粒度奖励与捷径、泛化和安全的关系。",
+    "minutes": 8,
+    "source": "GiGPO 系列工作梳理.md",
+    "body": "/content/notes/n16.md"
+  },
+  {
     "id": "n15",
     "name": "Role Confusion",
     "title": "Prompt Injection as Role Confusion",
