@@ -1,5 +1,17 @@
 [
   {
+    "id": "n17",
+    "name": "Polished but Unresolved",
+    "title": "Identifying Late-Stage Pressure States in Long-Horizon Tool-Use Agents",
+    "category": "论文精读",
+    "date": "2026-10-27",
+    "year": "2026",
+    "excerpt": "从交付外观与证据支持的错位出发，梳理长程工具调用智能体的收尾压力，以及线性探针的数据构造、输入选择与训练方式。",
+    "minutes": 10,
+    "source": "Polished but Unresolved.md",
+    "body": "/content/notes/n17.md"
+  },
+  {
     "id": "n16",
     "name": "GiGPO 系列工作梳理",
     "title": "从 GiGPO、HGPO 到 GraphGPO 与 G2PO：细粒度奖励、分组与图建模",
