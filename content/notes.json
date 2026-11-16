@@ -1,5 +1,17 @@
 [
   {
+    "id": "n18",
+    "name": "LLMs Get Lost In Multi-Turn Conversation",
+    "title": "这篇文章的重要贡献在于把一个直觉问题做成系统评测、量化其严重性。",
+    "category": "论文精读",
+    "date": "2026-11-16",
+    "year": "2026",
+    "excerpt": "智能体长程任务是一个天然的多轮交互过程，也有文章表明长程任务容易忽略用户的部分需求，是否与智能体在了解足够信息之前就决策确定方向有关？",
+    "minutes": 7,
+    "source": "LLMS GET LOST IN MULTI-TURN CONVERSATION.md",
+    "body": "/content/notes/n18.md"
+  },
+  {
     "id": "n17",
     "name": "Polished but Unresolved",
     "title": "Identifying Late-Stage Pressure States in Long-Horizon Tool-Use Agents",
